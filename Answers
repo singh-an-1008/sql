@@ -1,0 +1,11 @@
+sql answers for the 7 : in serquence
+select student_name , marks  from students join course on students.student_id=course.student_id order by marks desc
+select student_name , marks  from students join course on students.student_id=course.student_id order by marks desc limit 1,2
+select student_name , marks  from students join course on students.student_id=course.student_id where marks=(select MIN(marks) from course)
+select student_name , marks  from students join course on students.student_id=course.student_id where marks=(select MIN(marks) from course) order by marks limit 3,1
+select city  from students join course on students.student_id=course.student_id  order by marks desc limit 1,2
+select count(city) from students join course on students.student_id=course.student_id 
+select City FROM students GROUP BY City HAVING COUNT(*) > 1
+select student_name from students where student_name like 'A%'
+select count(student_name),city from students join course on students.student_id=course.student_id group by city
+select count(student_name),marks from students join course on students.student_id=course.student_id group by marks HAVING COUNT(*) > 1
