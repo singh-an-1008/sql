@@ -9,3 +9,11 @@ select City FROM students GROUP BY City HAVING COUNT(*) > 1
 select student_name from students where student_name like 'A%'
 select count(student_name),city from students join course on students.student_id=course.student_id group by city
 select count(student_name),marks from students join course on students.student_id=course.student_id group by marks HAVING COUNT(*) > 1
+
+-- Answers for question no 9 ( lifestyle table was created )
+select product_id from lifestyle where low_fats='Y' and recyclable='Y'
+
+--Answer for question no 10
+select SUM(population) from economy
+select country from economy where population<=150000
+
