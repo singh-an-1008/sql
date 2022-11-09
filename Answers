@@ -13,6 +13,35 @@ select count(student_name),marks from students join course on students.student_i
 -- Answers for question no 9 ( lifestyle table was created )
 select product_id from lifestyle where low_fats='Y' and recyclable='Y'
 
+
+-- Answer for question no 6:
+ select MAX(population) from information
+ select MIN(gdp) from information
+ select name from information where name like "%c"
+ select name from information where name like "D%"
+ select MAX(gdp) from information
+  select SUM(GDP) from information where name in ('Algeria','Andola','Angola','Domnican Republic','Djibouti','Domnica')
+  select name from information where (population<=200000000)
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --Answer for question no 10
 select SUM(population) from economy
 select country from economy where population<=150000
