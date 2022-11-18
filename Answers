@@ -30,6 +30,13 @@ SQL Challenge : Answers
 4: select * from city where id='1661';
 5: select * from city where country_code='JPN' ( no japanese city avaialble )
 6: select Names from city where country_code='JPN';
+7 select city, states from station
+8 select city from station where id%2=0;
+9 select count(city)-count(distinct(city)) from station;
+10/11 select LENGTH(city),city from station order by LENGTH(city) desc limit 1/select LENGTH(city),city from station order by LENGTH(city) asc limit 1;
+12 select distinct(city) from station where city   LIKE '[(a,e,i,o,u)%]'
+13 select distinct(city) from station where city   LIKE '[%(a,e,i,o,u)]' and '[(a,e,i,o,u)%]'
+14 select p.product_id,p.product_name from product p join sales s on p.product_id=s.product_id where sale_date  between '2019-01-01' and '2019-03-31'
 
   
 
