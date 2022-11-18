@@ -23,6 +23,15 @@ select product_id from lifestyle where low_fats='Y' and recyclable='Y'
   select SUM(GDP) from information where name in ('Algeria','Andola','Angola','Domnican Republic','Djibouti','Domnica')
   select name from information where (population<=200000000)
   
+SQL Challenge : Answers
+1: select * from city where City_population>100000 and country_code='USA';
+2: select Names from city where City_population>100000 and country_code='USA';
+3: select * from city
+4: select * from city where id='1661';
+5: select * from city where country_code='JPN' ( no japanese city avaialble )
+6: select Names from city where country_code='JPN';
+
+  
 
 
 
@@ -42,7 +51,5 @@ select product_id from lifestyle where low_fats='Y' and recyclable='Y'
 
 
 
---Answer for question no 10
-select SUM(population) from economy
-select country from economy where population<=150000
+
 
