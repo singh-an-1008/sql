@@ -37,6 +37,36 @@ SQL Challenge : Answers
 12 select distinct(city) from station where city   LIKE '[(a,e,i,o,u)%]'
 13 select distinct(city) from station where city   LIKE '[%(a,e,i,o,u)]' and '[(a,e,i,o,u)%]'
 14 select p.product_id,p.product_name from product p join sales s on p.product_id=s.product_id where sale_date  between '2019-01-01' and '2019-03-31'
+18 select author_id from viewd where author_id=viewer_id;
+19 select (count(*) * 100) / (select count(*) from delivery) AS required_percentage
+from delivery
+where order_date = customer_pref_delivery_date;
+22 select c.country_name,
+  case
+ when w.weather_sate <= 15 then'cold'
+ when w.weather_sate >= 25 then 'warm'
+    else 'warmwise'
+end as  weather_type
+from countries c
+inner join weather w ON c.country_id = w.country_id;
+23   select p.product_id, (units/price) as average_price 
+  from prices p 
+  inner join unitssold u 
+  on p.product_id=u.product_id
+  ORDER  by p.product_id;
+24 select player_id, min(event_date) as first_login_date
+from activity
+group by player_id;
+25 select player_id, MIN(event_date) AS first_login_date, device_id
+from activity
+group by player_id desc limit 1;
+26: select p.product_name, sum(o.unit) as amount
+from Products p
+join Orders o on p.product_id = o.product_id
+where month(order_date)=2
+group by p.product_name
+having sum(o.unit) >= 100;
+27
 
   
 
