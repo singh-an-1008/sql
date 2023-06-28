@@ -33,40 +33,98 @@ SQL Challenge : Answers
 7 select city, states from station
 8 select city from station where id%2=0;
 9 select count(city)-count(distinct(city)) from station;
-10/11 select LENGTH(city),city from station order by LENGTH(city) desc limit 1/select LENGTH(city),city from station order by LENGTH(city) asc limit 1;
-12 select distinct(city) from station where city   LIKE '[(a,e,i,o,u)%]'
-13 select distinct(city) from station where city   LIKE '[%(a,e,i,o,u)]' and '[(a,e,i,o,u)%]'
-14 select p.product_id,p.product_name from product p join sales s on p.product_id=s.product_id where sale_date  between '2019-01-01' and '2019-03-31'
-18 select author_id from viewd where author_id=viewer_id;
-19 select (count(*) * 100) / (select count(*) from delivery) AS required_percentage
-from delivery
-where order_date = customer_pref_delivery_date;
-22 select c.country_name,
-  case
- when w.weather_sate <= 15 then'cold'
- when w.weather_sate >= 25 then 'warm'
-    else 'warmwise'
-end as  weather_type
-from countries c
-inner join weather w ON c.country_id = w.country_id;
-23   select p.product_id, (units/price) as average_price 
-  from prices p 
-  inner join unitssold u 
-  on p.product_id=u.product_id
-  ORDER  by p.product_id;
-24 select player_id, min(event_date) as first_login_date
-from activity
-group by player_id;
-25 select player_id, MIN(event_date) AS first_login_date, device_id
-from activity
-group by player_id desc limit 1;
+10/11 :select LENGTH(city),city from station order by LENGTH(city) desc limit 1/select LENGTH(city),city from station order by LENGTH(city) asc limit 1;
+12: select distinct(city) from station where city   LIKE '[(a,e,i,o,u)%]'
+13: select distinct(city) from station where city   LIKE '[%(a,e,i,o,u)]' and '[(a,e,i,o,u)%]'
+14: select p.product_id,p.product_name from product p join sales s on p.product_id=s.product_id where sale_date  between '2019-01-01' and '2019-03-31'
+18: select author_id from viewd where author_id=viewer_id;
+19: select (count(*) * 100) / (select count(*) from delivery) AS required_percentage
+   from delivery
+   where order_date = customer_pref_delivery_date;
+22: select c.country_name,
+   case
+   when w.weather_sate <= 15 then'cold'
+   when w.weather_sate >= 25 then 'warm'
+   else 'warmwise'
+   end as  weather_type
+   from countries c
+   inner join weather w ON c.country_id = w.country_id;
+23: select p.product_id, (units/price) as average_price 
+   from prices p 
+   inner join unitssold u 
+   on p.product_id=u.product_id
+   ORDER  by p.product_id;
+24: select player_id, min(event_date) as first_login_date
+   from activity
+   group by player_id;
+25: select player_id, MIN(event_date) AS first_login_date, device_id
+   from activity
+   group by player_id desc limit 1;
 26: select p.product_name, sum(o.unit) as amount
-from Products p
-join Orders o on p.product_id = o.product_id
-where month(order_date)=2
-group by p.product_name
-having sum(o.unit) >= 100;
-27
+    from Products p
+    join Orders o on p.product_id = o.product_id
+    where month(order_date)=2
+    group by p.product_name
+    having sum(o.unit) >= 100;
+27: select user_id, name, mail
+    from Users
+    where mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$';
+28: select c.customer_id, c.name as customer_name
+   from customers c
+   join orders o ON c.customer_id = o.customer_id
+   join product p ON o.product_id = p.product_id
+   where month(order_date) in (6,7)
+   group by c.customer_id, c.name
+   having SUM(o.quantity * p.price) >= 100
+   order by customer_id
+29: select c.title 
+    from content c 
+    join tvprogram t 
+    on c.content_id=t.content_id
+    where month(program_date)=6 and kids_content='Y' and content_type='Movies';
+30:  select n.id,q.year,n.npv
+    from NPV n 
+    join Queries q 
+    on n.id=q.id 
+    order by q.year,n.id desc;
+31: Question is repeated, answer would be same as above.
+32: select employees.name, employeeUNI.unique_id
+    from employees
+    left join employeeUNI ON employees.id = employeeUNI.id;
+33: select u.name, sum(distance)
+    from userss u 
+    inner join rides r 
+    on u.id=r.user_id
+    group by u.name 
+    order by u.name desc;
+34: select name
+from Used
+where user_id = (
+  SELECT user_id
+  FROM MovieRating
+  GROUP BY user_id
+  ORDER BY COUNT(*) DESC, name ASC
+  LIMIT 1
+);
+select title
+FROM Movies
+WHERE movie_id = (
+  SELECT movie_id
+  FROM MovieRating
+  WHERE created_at >= '2020-02-01' AND created_at <= '2020-02-29'
+  GROUP BY movie_id
+  HAVING AVG(rating) = (
+    SELECT MAX(avg_rating)
+    FROM (
+      SELECT AVG(rating) AS avg_rating
+      FROM MovieRating
+      WHERE created_at >= '2020-02-01' AND created_at <= '2020-02-29'
+      GROUP BY movie_id
+    ) AS avg_ratings
+  )
+  ORDER BY title ASC
+  LIMIT 1
+);
 
   
 
