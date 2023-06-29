@@ -98,34 +98,57 @@ SQL Challenge : Answers
     group by u.name 
     order by u.name desc;
 34: select name
-from Used
-where user_id = (
-  SELECT user_id
-  FROM MovieRating
-  GROUP BY user_id
-  ORDER BY COUNT(*) DESC, name ASC
-  LIMIT 1
-);
-select title
-FROM Movies
-WHERE movie_id = (
-  SELECT movie_id
-  FROM MovieRating
-  WHERE created_at >= '2020-02-01' AND created_at <= '2020-02-29'
-  GROUP BY movie_id
-  HAVING AVG(rating) = (
-    SELECT MAX(avg_rating)
-    FROM (
-      SELECT AVG(rating) AS avg_rating
-      FROM MovieRating
-      WHERE created_at >= '2020-02-01' AND created_at <= '2020-02-29'
-      GROUP BY movie_id
-    ) AS avg_ratings
+   from Used
+   where user_id = (
+   select user_id
+   from MovieRating
+   group by user_id
+   order by cpount(*) DESC, name ASC
+   LIMIT 1 );
+ 35:select title
+    from Movies
+   where movie_id = (
+   select movie_id
+  from MovieRating
+  where created_at >= '2020-02-01' AND created_at <= '2020-02-29'
+  group by movie_id
+  having avg(rating) = (
+   select max(avg_rating)
+    from (
+    select avg(rating) AS avg_rating
+      from MovieRating
+      where created_at >= '2020-02-01' AND created_at <= '2020-02-29'
+    group by movie_id
+    ) as avg_ratings
   )
-  ORDER BY title ASC
-  LIMIT 1
+ order by title asc
+  limit 1
 );
+36: repeated question
+37:
 
+
+
+
+
+38: select s.id, s.name
+    from students s
+    left join departments d
+    on d.id=s.department_id
+    where d.id is null;
+39: select
+    from_id AS person1,
+    to_id AS person2,
+    count(*) AS call_count,
+    sum(duration) AS total_duration
+    from calls
+    where from_id < to_id
+    group by from_id, to_id;
+40: select p.product_id, ROUND(AVG(price), 2) AS average_price
+   from prices p
+   inner join unitsSold u  
+   on p.product_id=u.product_id 
+   group by p.product_id
   
 
 
