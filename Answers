@@ -20,8 +20,8 @@ select product_id from lifestyle where low_fats='Y' and recyclable='Y'
  select name from information where name like "%c"
  select name from information where name like "D%"
  select MAX(gdp) from information
-  select SUM(GDP) from information where name in ('Algeria','Andola','Angola','Domnican Republic','Djibouti','Domnica')
-  select name from information where (population<=200000000)
+ select SUM(GDP) from information where name in ('Algeria','Andola','Angola','Domnican Republic','Djibouti','Domnica')
+ select name from information where (population<=200000000)
   
 SQL Challenge : Answers
 1: select * from city where City_population>100000 and country_code='USA';
@@ -107,30 +107,27 @@ SQL Challenge : Answers
    LIMIT 1 );
  35:select title
     from Movies
-   where movie_id = (
-   select movie_id
-  from MovieRating
-  where created_at >= '2020-02-01' AND created_at <= '2020-02-29'
-  group by movie_id
-  having avg(rating) = (
-   select max(avg_rating)
+    where movie_id = (
+    select movie_id
+    from MovieRating
+    where created_at >= '2020-02-01' AND created_at <= '2020-02-29'
+    group by movie_id
+    having avg(rating) = (
+    select max(avg_rating)
     from (
     select avg(rating) AS avg_rating
       from MovieRating
       where created_at >= '2020-02-01' AND created_at <= '2020-02-29'
     group by movie_id
     ) as avg_ratings
-  )
- order by title asc
-  limit 1
-);
+    )
+    order by title asc
+     limit 1
+     );
 36: repeated question
-37:
-
-
-
-
-
+37: select e.name, coalasce(u.unique_id, 'null') AS unique_id
+    from Employees e
+    left join EmployeeUNI u ON e.id = u.id;
 38: select s.id, s.name
     from students s
     left join departments d
@@ -145,11 +142,41 @@ SQL Challenge : Answers
     where from_id < to_id
     group by from_id, to_id;
 40: select p.product_id, ROUND(AVG(price), 2) AS average_price
-   from prices p
-   inner join unitsSold u  
-   on p.product_id=u.product_id 
-   group by p.product_id
-  
+    from prices p
+    inner join unitsSold u  
+    on p.product_id=u.product_id 
+    group by p.product_id
+41: select sum(units*(width*height*length)) as volume , w.name from Warehouse w 
+    join Products p 
+    on w.product_id=p.product_id
+    group by w.name;
+42: select sale_date, sum( case when fruit = 'apples' then sold_num else -sold_num end) AS diff
+    from Sales
+    group by sale_date;
+43: select distinct(device_id/games_played) as frac
+    from Acticity
+    where date_sub(date(event_date),interval -1 day)=1;
+44: select E1.name AS manager_name
+    from Employee E1
+    join (
+    select managerId, count(*) AS num_reports
+    from Employee
+    group by managerId
+    having count(*) >= 5
+    ) E2 on E1.id = E2.managerId;
+45: select d.dept_name, count(student_id) as student_number
+    from Department d 
+    left join Student s 
+    on s.dept_id=d.dept_id
+    group by d.dept_id,d.dept_name
+    order by student_number desc, d.dept_name asc;
+46: SELECT customer_id
+    FROM Customer
+    GROUP BY customer_id
+    HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product);
+
+
+
 
 
 
