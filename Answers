@@ -170,10 +170,38 @@ SQL Challenge : Answers
     on s.dept_id=d.dept_id
     group by d.dept_id,d.dept_name
     order by student_number desc, d.dept_name asc;
-46: SELECT customer_id
-    FROM Customer
-    GROUP BY customer_id
-    HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product);
+46: select customer_id
+    from Customer
+    group bycustomer_id
+    having(distinct product_key) = (select count(*) from Product);
+47: select p.project_id, e.employee_id
+    from Project p
+    join Employee e on p.employee_id = e.employee_id
+    where e.experience_years = (
+    select max(experience_years)
+    from Employee e2
+    where e2.employee_id = p.employee_id
+    );
+48: proper input was not given for the orders 
+49:select student_id,course_id, grade 
+   from 
+   (select student_id,course_id,grade ,
+   row_number() over(partition by student_id order by grade desc,course_id asc)
+   as Trem
+   from Enrollments
+   )
+   as trek
+   where Trem=1;
+50:SELECT group_id, player_id, total_points
+   FROM (
+  SELECT group_id, player_id, SUM(first_score + second_score) AS total_points,
+         ROW_NUMBER() OVER (PARTITION BY group_id ORDER BY SUM(first_score + second_score) DESC, player_id) AS rn
+  FROM teams
+  JOIN Matches ON Players.player_id = Matches.first_player OR Players.player_id = Matches.second_player
+  GROUP BY group_id, player_id
+) AS subquery
+WHERE rn = 1;
+
 
 
 
