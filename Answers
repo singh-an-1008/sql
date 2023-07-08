@@ -240,7 +240,49 @@ SET 2: Anwers
     END as seat_id
     from cinema
     order by seat_id;
-60: 
+60: select name 
+    from SalesPerson
+    where name not in
+    (select s.name 
+    from SalesPerson s
+    join Orders o on s.sales_id=o.sales_id 
+    join Company c on c.com_id=o.com_id
+    where c.name not in ('ORANGE','YELLOW','GREEN'));
+61: select x,y,z,
+    case
+    when (x+y>z) then 'yes'
+    else 'no'
+    end triangle_formation
+    from traingle
+    order by x,y,z;
+62: select min(abs(p1.x-p2.x))
+    from point p1
+    cross join point p2
+    where p1.x<>p2.x;
+foloow-up Ans: select min(p2.x - p1.x) AS shortest_distance
+               from point p1
+               join point p2 ON p2.x > p1.x;
+63: select actor_id, director_id, count(timestamp)
+    from actordirector
+    where actor_id = director_id
+    group by actor_id, director_id
+    having count(timestamp) >= 3;
+64: select p.product_name, s.year,s.price 
+    from Sales s 
+    join Product p 
+    on s.product_id=p.product_id;
+65: SELECT s.seller_id, SUM(s.price) AS total_sales_price
+FROM saled s
+JOIN product p ON s.product_id = p.product_id
+GROUP BY s.seller_id
+HAVING SUM(s.price) = (
+  SELECT MAX(total_sales_price)
+  FROM (
+    SELECT seller_id, SUM(price) AS total_sales_price
+    FROM saled
+    GROUP BY seller_id
+  ) AS subquery
+);
 
 
 
