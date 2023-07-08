@@ -194,14 +194,53 @@ SQL Challenge : Answers
    where Trem=1;
 50:SELECT group_id, player_id, total_points
    FROM (
-  SELECT group_id, player_id, SUM(first_score + second_score) AS total_points,
+   SELECT group_id, player_id, SUM(first_score + second_score) AS total_points,
          ROW_NUMBER() OVER (PARTITION BY group_id ORDER BY SUM(first_score + second_score) DESC, player_id) AS rn
   FROM teams
   JOIN Matches ON Players.player_id = Matches.first_player OR Players.player_id = Matches.second_player
   GROUP BY group_id, player_id
-) AS subquery
-WHERE rn = 1;
+  ) AS subquery
+   WHERE rn = 1;
 
+==========================================================================================================================================================================================================================
+SET 2: Anwers 
+51: select name,population, area 
+    from world
+    where population>=25000000 and area>=3000000;
+52: select name 
+    from customer
+    where referee_id=Null or referee_id<>2;
+53: select name
+    from customers
+    where customer_id NOT IN (SELECT distinct(customer_id) FROM Orders);
+54: select team_id, COUNT(*) AS team_size
+    from Employee
+    group by team_id;
+55: select c.name as country_name
+    from Country c
+    join Person p ON c.country_code = left(p.phone_number, 3)
+    left join Calls cl on cl.callee_id = p.id
+    group by c.name
+    having avg(cl.duration) > (select avg(duration) from Calls);( Issue with answer, pllease review and send the refined version of the code )
+56: select device_id,player_id, MAX(event_date) AS most_recent_login
+    from Activity
+    group player_id,device_id;
+57: select customer_number,count(ordre_number) as order_count
+    from orders
+    group by customer_number
+    having order_count>1;
+58: select customer_number,count(ordre_number) as order_count
+    from orders
+    group by customer_number
+    having order_count>1;
+59: select 
+    CASE 
+    WHEN free=0 THEN NULL
+    when free=1 then seat_id
+    END as seat_id
+    from cinema
+    order by seat_id;
+60: 
 
 
 
