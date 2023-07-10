@@ -283,6 +283,52 @@ HAVING SUM(s.price) = (
     GROUP BY seller_id
   ) AS subquery
 );
+66: select distinct s.buyer_id 
+    from Products p 
+    right join Sale s 
+    on p.product_id=s.product_id
+    where p.product_name='S8' and s.buyer_id not in (
+      select distinct s.buyer_id 
+      from Products p 
+      right join Sale s 
+      on p.product_id=s.product_id
+      where p.product_name='iPhone'
+ );
+67: SELECT
+  visited_on,
+  amount,
+  ROUND(AVG(amount) OVER (
+    ORDER BY visited_on
+    ROWS BETWEEN 6  PRECEDING AND CURRENT ROW
+  ), 2) AS average_amount
+FROM Customer
+ORDER BY visited_on ASC;
+68: select gender, day, sum(score_points) 
+    over(partition by gender order by day asc)
+    from Scores
+    order by gender,day asc;
+69:
+
+
+70:select s.student_id, s.student_name, S.subject_name, count(*) as attended_exams
+  from Students s 
+  left join Examinations e 
+  on s.student_id=e.student_id
+  cross join Subjects S on e.subject_name=S.subject_name
+  group by s.student_id, s.student_name, S.subject_name
+  order by s.student_id, s.student_name, S.subject_name
+
+  SELECT student_id, subject_name, COUNT(*) AS attendance_count
+FROM Examinations
+GROUP BY student_id, subject_name
+ORDER BY student_id, subject_name;
+
+SELECT s.student_id, s.student_name, sub.subject_name, COUNT(e.student_id) AS attendance_count
+FROM Students s
+CROSS JOIN Subjects sub
+LEFT JOIN Examinations e ON s.student_id = e.student_id AND sub.subject_name = e.subject_name
+GROUP BY s.student_id, s.student_name, sub.subject_name
+ORDER BY s.student_id, sub.subject_name;
 
 
 
