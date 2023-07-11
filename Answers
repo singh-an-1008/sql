@@ -329,7 +329,23 @@ CROSS JOIN Subjects sub
 LEFT JOIN Examinations e ON s.student_id = e.student_id AND sub.subject_name = e.subject_name
 GROUP BY s.student_id, s.student_name, sub.subject_name
 ORDER BY s.student_id, sub.subject_name;
+71:select employee_id, manager_id from (select employee_id,manager_id 
+from Employees
+where employee_id!=manager_id) as thumba
+where manager_id not in (3,8);
 
+72: 
+75:SELECT company_id, employee_id, employee_name,
+  CASE
+    WHEN max_salary < 1000 THEN ROUND(salary, 0)
+    WHEN max_salary BETWEEN 1000 AND 10000 THEN ROUND(salary * 0.76, 0)
+    ELSE ROUND(salary * 0.51, 0)
+  END AS salary_after_tax
+FROM (
+  SELECT s.company_id, s.employee_id, s.employee_name, s.salary,
+    MAX(s.salary) OVER (PARTITION BY s.company_id) AS max_salary
+  FROM Salaries s
+) subquery;
 
 
 
